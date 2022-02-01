@@ -1,0 +1,32 @@
+html,
+body {
+  background-color: #2e2836;
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  color: white;
+}
+
+.Grid {
+}
+
+.Row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
+
+.Tile {
+  width: 100px;
+  height: 100px;
+  background-color: #b6d094;
+  color: black;
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: capitalize;
+  vertical-align: middle;
+  line-height: 100px;
+}
