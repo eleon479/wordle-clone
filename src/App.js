@@ -2,29 +2,15 @@ import { Tile } from "./components/Tile";
 import { Row } from "./components/Row";
 import "./styles.css";
 import { useEffect, useState } from "react";
+import { GameProvider } from "./contexts/GameState";
 
 export default function App() {
-  const [currentGuess, setCurrentGuess] = useState("");
   const [guessRows, setGuessRows] = useState([]);
   const [activeRow, setActiveRow] = useState(0);
-  const rowCount = 5;
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    // perform word check / validation here...
-    // ...
-
-    const newGuessRows = guessRows;
-    newGuessRows[activeRow] = {
-      letters: currentGuess,
-      complete: true
-    };
-
-    setGuessRows(newGuessRows);
-    setActiveRow(activeRow + 1);
-    setCurrentGuess("");
-  };
+  const [currentGuess, setCurrentGuess] = useState("");
+  const rowCount = 6;
+  const letterCount = 5;
+  const targetWord = "hello";
 
   useEffect(() => {
     let buildGuessRows = [];
@@ -34,32 +20,64 @@ export default function App() {
         complete: false
       });
     }
-
     setGuessRows(buildGuessRows);
   }, []);
 
-  // useEffect({});
+  useEffect(() => {
+    if (activeRow === rowCount) {
+      alert("You lose :(");
+    }
+  }, [activeRow]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (currentGuess.length !== letterCount) {
+      return;
+    }
+
+    // perform word check / validation here...
+    // ...
+
+    if (currentGuess.toLowerCase() === targetWord) {
+      alert("Game over! You win.");
+      // implement some game reset
+    } else {
+      const newGuessRows = guessRows;
+      newGuessRows[activeRow] = {
+        letters: currentGuess,
+        complete: true
+      };
+
+      setGuessRows(newGuessRows);
+      setActiveRow(activeRow + 1);
+      setCurrentGuess("");
+    }
+  };
 
   return (
-    <div className="App">
-      Buffer: {currentGuess}
-      <br />
-      Guess Count:
-      <hr />
-      <div className="Grid">
-        {guessRows.map((guess) => {
-          return <Row letters={guess.letters} />;
-        })}
+    <GameProvider>
+      <div className="App">
+        Buffer: {currentGuess}
+        <br />
+        Active Row: {activeRow}
+        <hr />
+        <div className="Grid">
+          {guessRows.map((guess) => {
+            return <Row letters={guess.letters} />;
+          })}
+        </div>
+        <br />
+        <form onSubmit={handleSubmit}>
+          <input
+            maxLength={letterCount}
+            type="text"
+            value={currentGuess}
+            onChange={(e) => setCurrentGuess(e.target.value)}
+            placeholder="Enter your guess! ex: HELLO"
+          />
+        </form>
       </div>
-      <br />
-      <form onSubmit={handleSubmit}>
-        <input
-          maxLength="5"
-          type="text"
-          value={currentGuess}
-          onChange={(e) => setCurrentGuess(e.target.value)}
-        />
-      </form>
-    </div>
+    </GameProvider>
   );
 }
