@@ -14,7 +14,14 @@ export default (state, action) => {
             return guess
           }
         }),
-        activeRow: state.activeRow + 1
+        activeRow: state.activeRow + 1,
+        gameOver: state.activeRow + 1 >= state.rowCount
+      }
+    case 'END_GAME':
+      return {
+        ...state,
+        gameOver: true,
+        message: 'Game over!'
       }
     default:
       return state;

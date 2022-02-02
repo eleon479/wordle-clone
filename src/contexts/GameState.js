@@ -14,7 +14,9 @@ const initialState = {
   activeRow: 0,
   rowCount: 6,
   letterCount: 5,
-  targetWord: 'hello'
+  targetWord: 'hello',
+  gameOver: false,
+  message: 'Wordle!'
 };
 
 // Create context
@@ -31,6 +33,10 @@ export const GameProvider = ({ children }) => {
     })
   }
 
+  function endGame() {
+    dispatch({ type: 'END_GAME' })
+  }
+
   return (
     <GameContext.Provider
       value={{
@@ -39,7 +45,10 @@ export const GameProvider = ({ children }) => {
         rowCount: state.rowCount,
         letterCount: state.letterCount,
         targetWord: state.targetWord,
-        addGuess
+        gameOver: state.gameOver,
+        message: state.message,
+        addGuess,
+        endGame
       }}
     >
       {children}
