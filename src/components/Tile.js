@@ -2,22 +2,21 @@ import React, { useContext, useState, useEffect } from "react";
 import { GameContext } from "../contexts/GameState";
 
 export const Tile = ({ letter, charIndex }) => {
-  const guessResultMap = {
-    correct: 'Tile correct',
-    wrong: 'Tile wrong',
-    empty: 'Tile empty'
+  const results = {
+    CORRECT: 'Tile correct',
+    WRONG: 'Tile wrong',
+    EMPTY: 'Tile empty'
   }
 
   const { targetWord } = useContext(GameContext);
-  const [guessResult, setGuessResult] = useState(guessResultMap.empty);
+  const [guessResult, setGuessResult] = useState(results.EMPTY);
 
   useEffect(() => {
-    if (letter === targetWord.charAt(charIndex)) {
-      setGuessResult(guessResultMap.correct)
-    } else if (letter) {
-      setGuessResult(guessResultMap.wrong)
+    const resultType = (letter === targetWord.charAt(charIndex)) ? results.CORRECT : results.WRONG
+    if (letter) {
+      setGuessResult(resultType)
     } else {
-      setGuessResult(guessResultMap.empty)
+      setGuessResult(results.EMPTY)
     }
   }, [letter])
 

@@ -1,7 +1,6 @@
 import React, { createContext, useReducer } from "react";
 import AppReducer from "./AppReducer";
 
-// Initial state
 const initialState = {
   guessRows: [
     { id: 0, letters: "", complete: false },
@@ -19,10 +18,8 @@ const initialState = {
   message: 'Wordle!'
 };
 
-// Create context
 export const GameContext = createContext(initialState);
 
-// Provider component
 export const GameProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
