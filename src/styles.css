@@ -15,8 +15,9 @@ body {
 .Row {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   margin-top: 10px;
+  gap: 10px;
 }
 
 .Tile {
@@ -29,4 +30,12 @@ body {
   text-transform: capitalize;
   vertical-align: middle;
   line-height: 100px;
+}
+
+.empty {
+  background-color: grey;
+}
+
+.wrong {
+  background-color: red;
 }
