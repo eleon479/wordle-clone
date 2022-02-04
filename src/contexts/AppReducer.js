@@ -23,6 +23,28 @@ export default (state, action) => {
         gameOver: true,
         message: 'Game over!'
       }
+    case 'ADD_LETTER':
+      return {
+        ...state,
+        guessBuffer: state.guessBuffer + action.payload,
+        activeLetter: state.activeLetter + 1
+      }
+    case 'REMOVE_LETTER':
+      return {
+        ...state,
+        guessBuffer: state.guessBuffer.slice(0, -1),
+        activeLetter: state.activeLetter - 1
+      }
+    case 'ENTER_GUESS':
+      return {
+        ...state,
+        // come back to this later and use addGuess for now
+      }
+    case 'RESET_BUFFER':
+      return {
+        ...state,
+        guessBuffer: ''
+      }
     default:
       return state;
   }

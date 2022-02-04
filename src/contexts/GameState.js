@@ -15,7 +15,9 @@ const initialState = {
   letterCount: 5,
   targetWord: 'hello',
   gameOver: false,
-  message: 'Wordle!'
+  message: 'Wordle!',
+  guessBuffer: '',
+  activeLetter: 0
 };
 
 export const GameContext = createContext(initialState);
@@ -31,7 +33,34 @@ export const GameProvider = ({ children }) => {
   }
 
   function endGame() {
-    dispatch({ type: 'END_GAME' })
+    dispatch({
+      type: 'END_GAME'
+    })
+  }
+
+  function addLetter(letter) {
+    dispatch({
+      type: 'ADD_LETTER',
+      payload: letter
+    })
+  }
+
+  function removeLetter() {
+    dispatch({
+      type: 'REMOVE_LETTER'
+    })
+  }
+
+  function enterGuess() {
+    dispatch({
+      type: 'ENTER_GUESS'
+    })
+  }
+
+  function resetBuffer() {
+    dispatch({
+      type: 'RESET_BUFFER'
+    })
   }
 
   return (
@@ -44,8 +73,14 @@ export const GameProvider = ({ children }) => {
         targetWord: state.targetWord,
         gameOver: state.gameOver,
         message: state.message,
+        guessBuffer: state.guessBuffer,
+        activeLetter: state.activeLetter,
         addGuess,
-        endGame
+        endGame,
+        addLetter,
+        removeLetter,
+        enterGuess,
+        resetBuffer
       }}
     >
       {children}

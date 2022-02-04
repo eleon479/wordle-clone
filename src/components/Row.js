@@ -2,20 +2,27 @@ import React, { useEffect, useState, useContext } from "react";
 import { Tile } from "./Tile";
 import { GameContext } from "../contexts/GameState";
 
-export const Row = ({ guess, rowIndex }) => {
-  const { rowCount, letterCount } = useContext(GameContext);
+export const Row = ({ guess, rowIndex, active }) => {
+  const { rowCount, letterCount, guessBuffer } = useContext(GameContext);
 
-  console.log(guess);
+  /* 
+    left off at implementing new tile list logic
+  */
+  const tileList = Array[letterCount].map((v, i) => {
+    if () {
+      return <Tile letter={ } charIndex={i} key={i.toString()} />
+    } else {
 
-  const tileList = guess.complete ? guess.letters.split("").map((letter, index) =>
-    <Tile charIndex={index} key={index.toString()} letter={letter} />
-  ) : Array(letterCount).fill('').map((val, index) =>
-    <Tile charIndex={index} key={index.toString()} letter={val} />
-  )
+    }
+  })
+
+  useEffect(() => {
+
+  }, [guessBuffer])
 
   return (
     <div className="Row">
-      {tileList}
+
     </div>
   );
 };
